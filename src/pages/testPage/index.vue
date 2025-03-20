@@ -57,7 +57,7 @@ onUnmounted(() => {
   display: block;
 }
 .cursor {
-  transition: transform 0 ease-in-out;
+  transition: transform 0.1s cubic-bezier(0.08, 0.28, 1, 1.4);
   --size: 8rem;
   position: absolute;
   z-index: 99999;
