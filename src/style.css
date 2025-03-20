@@ -58,11 +58,29 @@ button:focus-visible {
   padding: 2em;
 }
 
-#app {
+/* #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: tahoma, "microsoft yahei", "\5FAE\8F6F\96C5\9ED1" !important;
 }
 
 @media (prefers-color-scheme: light) {

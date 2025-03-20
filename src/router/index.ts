@@ -1,17 +1,23 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
-export default createRouter({
-  history: createMemoryHistory(import.meta.env.BASE_URL),
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "homePage",
+      redirect: "/home",
+    },
+    {
+      path: "/home",
+      name: "home",
       component: () => import("@/pages/HelloWorld.vue"),
     },
     {
       path: "/test",
-      name: "testPage",
+      name: "test",
       component: () => import("@/pages/testPage/index.vue"),
     },
   ],
 });
+
+export default router;
