@@ -131,8 +131,8 @@ defineProps<{
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 999px;
-        background-color: #000;
-        color: #fff;
+        background-color: #fff;
+        color: #000;
         transition: color 0.5s ease-in-out, background-color 0.15s ease-in-out;
       }
     }
@@ -153,6 +153,7 @@ defineProps<{
         align-items: flex-start;
         font-size: 2.5rem;
         overflow: hidden;
+        color: #fff;
 
         &--bottom {
           position: absolute;
@@ -175,6 +176,7 @@ defineProps<{
         .tags__item {
           list-style: none;
           display: inline;
+          color: #fff;
         }
       }
     }
