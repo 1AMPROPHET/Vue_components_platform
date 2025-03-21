@@ -1,5 +1,9 @@
 <template>
-  <button class="card card--abs flex">
+  <button
+    class="card card--abs flex"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
+  >
     <div class="card__img">
       <img :src="src" />
     </div>
@@ -31,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/mitt";
+
 defineProps<{
   id?: string;
   date?: string;
@@ -39,15 +45,17 @@ defineProps<{
   title?: string;
   tags?: string[];
 }>();
+
+const handleMouseEnter = () => {
+  emitter.emit("cursorEnter");
+};
+
+const handleMouseLeave = () => {
+  emitter.emit("cursorLeave");
+};
 </script>
 
 <style lang="scss" scoped>
-// @media (max-width: 1920px) {
-//   button {
-//     width: 70%;
-//     height: 50%;
-//   }
-// }
 .card--abs {
   position: absolute;
 }
