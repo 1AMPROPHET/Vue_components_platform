@@ -16,10 +16,18 @@
 a {
   font-weight: 500;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
+  outline: 0;
 }
 a:hover {
   color: #535bf2;
+}
+
+*,
+*:before,
+*:after {
+  outline: none;
+  box-sizing: border-box;
 }
 
 body {
@@ -74,11 +82,13 @@ body {
   position: relative;
 }
 
+html {
+  font-size: clamp(12px, calc(100vw / 3840 * 32), 16px);
+}
+
 #app {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
   font-family: tahoma, "microsoft yahei", "\5FAE\8F6F\96C5\9ED1" !important;
 }
