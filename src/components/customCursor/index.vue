@@ -49,7 +49,7 @@ onUnmounted(() => {
   display: block;
 }
 .cursor {
-  transition: transform 0.2s cubic-bezier(0.08, 0.48, 1, 1.4);
+  transition: transform 0.4s cubic-bezier(0.05, 0.3, 0.43, 1.75);
   --size: 8rem;
   position: absolute;
   z-index: 99999;

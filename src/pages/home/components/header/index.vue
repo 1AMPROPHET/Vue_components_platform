@@ -1,7 +1,11 @@
 <template>
   <a-layout-header class="navbar grid-view">
     <div class="navbar__left">
-      <div class="navbar__logo"></div>
+      <div class="navbar__logo">
+        <div class="logo__bg">
+          <div class="logo__text">PROPHET</div>
+        </div>
+      </div>
     </div>
     <div class="navbar__wrapper navbar__buttons">
       <a
@@ -12,7 +16,12 @@
         >{{ t("home.about") }}</a
       >
     </div>
-    <div class="view-switch navbar__wrapper navbar__views"></div>
+    <custom-switch
+      v-model:model-value="switchValue"
+      @update:model-value="(value) => (switchValue = value)"
+      on-text="grid"
+      off-text="list"
+    />
     <div class="navbar__wrapper navbar__theme"></div>
   </a-layout-header>
 </template>
@@ -21,10 +30,14 @@
 import { useLangStore } from "@/store/lang";
 import emitter from "@/utils/mitt";
 import { useI18n } from "vue-i18n";
+import CustomSwitch from "@/components/switch/index.vue";
+import { ref } from "vue";
 
 const { t } = useI18n();
 
 const langStore = useLangStore();
+
+const switchValue = ref(true);
 
 const handleMouseEnter = () => {
   emitter.emit("cursorEnter");
@@ -78,6 +91,45 @@ const handleMouseLeave = () => {
       top: 50%;
       left: 0;
       transform: translateY(-50%);
+
+      &:hover .logo__bg {
+        width: 15rem;
+        transition: width 0.5s cubic-bezier(0.065, 0.44, 0.44, 1.4);
+      }
+
+      .logo__bg {
+        z-index: 1000;
+        cursor: pointer;
+        position: relative;
+        width: 3rem;
+        background: #fff;
+        height: 3rem;
+        --aspect-mul: 5.5;
+        max-width: calc(3rem * var(--aspect-mul));
+        transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        border-radius: 5px;
+
+        &:hover .logo__text {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          transition: width 0.5s cubic-bezier(0.065, 0.44, 0.44, 1.4);
+        }
+
+        .logo__text {
+          align-items: center;
+          justify-content: flex-start;
+          font-size: 2.5rem;
+          height: 100%;
+          width: 1.5rem;
+          line-height: 100%;
+          color: #000;
+          display: flex;
+          overflow: hidden;
+          transform: translateX(1rem);
+          transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+      }
     }
   }
 
