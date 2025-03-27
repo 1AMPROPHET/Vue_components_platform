@@ -1,0 +1,14 @@
+.grid-view {
+  display: grid;
+  padding: 0 5rem;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1rem;
+}
+
+.grid-view--no-padding {
+  padding: unset;
+}
+
+.grid-view--24 {
+  grid-template-columns: repeat(24, 1fr);
+}

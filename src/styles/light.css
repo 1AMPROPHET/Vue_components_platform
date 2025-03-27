@@ -1,0 +1,5 @@
+[data-theme="light"] {
+  --color-black: #000 !important;
+  --color-white: #fff !important;
+  --color-black-translucent: rgba(0, 0, 0, 0.5) !important;
+}

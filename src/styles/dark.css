@@ -1,0 +1,5 @@
+[data-theme="dark"] {
+  --color-black: #fff !important;
+  --color-white: #000 !important;
+  --color-black-translucent: rgba(255, 255, 255, 0.5) !important;
+}

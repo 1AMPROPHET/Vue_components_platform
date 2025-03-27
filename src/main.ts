@@ -7,6 +7,9 @@ import i18n from "./i18n";
 import pinia from "./store";
 import "virtual:uno.css";
 import "./style.css";
+import "./styles/grid.css";
+import "./styles/light.css";
+import "./styles/dark.css";
 import "@arco-design/web-vue/dist/arco.css";
 
 const app = createApp(App);

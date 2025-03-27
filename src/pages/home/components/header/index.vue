@@ -16,13 +16,10 @@
         >{{ t("home.about") }}</a
       >
     </div>
-    <custom-switch
-      v-model:model-value="switchValue"
-      @update:model-value="(value) => (switchValue = value)"
-      on-text="grid"
-      off-text="list"
-    />
-    <div class="navbar__wrapper navbar__theme"></div>
+    <custom-switch v-model="switchValue" on-text="grid" off-text="list" />
+    <div class="navbar__wrapper navbar__theme">
+      <theme-switch />
+    </div>
   </a-layout-header>
 </template>
 
@@ -31,7 +28,8 @@ import { useLangStore } from "@/store/lang";
 import emitter from "@/utils/mitt";
 import { useI18n } from "vue-i18n";
 import CustomSwitch from "@/components/switch/index.vue";
-import { ref } from "vue";
+import ThemeSwitch from "@/components/themeSwitch/index.vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const { t } = useI18n();
 
@@ -46,15 +44,19 @@ const handleMouseEnter = () => {
 const handleMouseLeave = () => {
   emitter.emit("cursorLeave");
 };
+
+onMounted(() => {
+  emitter.on("contentScroll", () => {
+    console.log("contentScroll");
+  });
+});
+
+onUnmounted(() => {
+  emitter.off("contentScroll");
+});
 </script>
 
 <style lang="scss" scoped>
-.grid-view {
-  display: grid;
-  padding: 0 5rem;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 1rem;
-}
 .navbar {
   position: fixed;
   top: 0;
@@ -102,7 +104,7 @@ const handleMouseLeave = () => {
         cursor: pointer;
         position: relative;
         width: 3rem;
-        background: #fff;
+        background: var(--color-black);
         height: 3rem;
         --aspect-mul: 5.5;
         max-width: calc(3rem * var(--aspect-mul));
@@ -123,7 +125,7 @@ const handleMouseLeave = () => {
           height: 100%;
           width: 1.5rem;
           line-height: 100%;
-          color: #000;
+          color: var(--color-white);
           display: flex;
           overflow: hidden;
           transform: translateX(1rem);

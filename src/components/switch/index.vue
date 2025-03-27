@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import emitter from "@/utils/mitt";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 interface SwitchProps {
   onValue?: any;
@@ -37,11 +37,7 @@ const props = withDefaults(defineProps<SwitchProps>(), {
   modelValue: true,
 });
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: any): void;
-}>();
-
-const currentValue = ref<any>(props.modelValue ?? true);
+const currentValue = defineModel();
 
 const onClassName = computed(() => {
   return currentValue.value === props.onValue
@@ -73,10 +69,8 @@ const style = computed(() => {
 
 const handleClick = () => {
   if (currentValue.value === props.onValue) {
-    emit("update:modelValue", props.offValue);
     currentValue.value = props.offValue;
   } else if (currentValue.value === props.offValue) {
-    emit("update:modelValue", props.onValue);
     currentValue.value = props.onValue;
   }
 };
