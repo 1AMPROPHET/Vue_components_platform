@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header class="navbar grid-view">
+  <a-layout-header class="navbar grid-view" :style="style">
     <div class="navbar__left">
       <div class="navbar__logo">
         <div class="logo__bg">
@@ -9,11 +9,12 @@
     </div>
     <div class="navbar__wrapper navbar__buttons">
       <a
-        href="/about"
+        v-for="item in links"
+        :href="item.link"
         class="navbar__item link cursor-pointer"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
-        >{{ t("home.about") }}</a
+        >{{ t(item.text) }}</a
       >
     </div>
     <custom-switch v-model="switchValue" on-text="grid" off-text="list" />
@@ -29,13 +30,33 @@ import emitter from "@/utils/mitt";
 import { useI18n } from "vue-i18n";
 import CustomSwitch from "@/components/switch/index.vue";
 import ThemeSwitch from "@/components/themeSwitch/index.vue";
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, reactive, ref } from "vue";
 
 const { t } = useI18n();
 
 const langStore = useLangStore();
 
 const switchValue = ref(true);
+
+const links = reactive([
+  {
+    text: "home.homePage",
+    link: "/home",
+  },
+  {
+    text: "home.about",
+    link: "/about",
+  },
+  {
+    text: "home.test",
+    link: "/test",
+  },
+]);
+
+const style = ref({
+  transform: "translateY(-100%)",
+  transition: "",
+});
 
 const handleMouseEnter = () => {
   emitter.emit("cursorEnter");
@@ -49,10 +70,17 @@ onMounted(() => {
   emitter.on("contentScroll", () => {
     console.log("contentScroll");
   });
+  emitter.on("loaderTransform", () => {
+    style.value = {
+      transform: "translateY(0%)",
+      transition: ".5s ease-in-out 1s",
+    };
+  });
 });
 
 onUnmounted(() => {
   emitter.off("contentScroll");
+  emitter.off("loaderTransform");
 });
 </script>
 
@@ -96,7 +124,7 @@ onUnmounted(() => {
 
       &:hover .logo__bg {
         width: 15rem;
-        transition: width 0.5s cubic-bezier(0.065, 0.44, 0.44, 1.4);
+        transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
       }
 
       .logo__bg {
@@ -104,7 +132,7 @@ onUnmounted(() => {
         cursor: pointer;
         position: relative;
         width: 3rem;
-        background: var(--color-black);
+        background: var(--platform-color-black);
         height: 3rem;
         --aspect-mul: 5.5;
         max-width: calc(3rem * var(--aspect-mul));
@@ -115,7 +143,9 @@ onUnmounted(() => {
           display: flex;
           width: 100%;
           justify-content: center;
-          transition: width 0.5s cubic-bezier(0.065, 0.44, 0.44, 1.4);
+          transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+          transition: transform cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+          transform: translateX(0);
         }
 
         .logo__text {
@@ -125,7 +155,7 @@ onUnmounted(() => {
           height: 100%;
           width: 1.5rem;
           line-height: 100%;
-          color: var(--color-white);
+          color: var(--platform-color-white);
           display: flex;
           overflow: hidden;
           transform: translateX(1rem);
@@ -154,7 +184,7 @@ onUnmounted(() => {
         bottom: -0.8rem;
         width: 100%;
         height: 0.18rem;
-        background-color: #fff;
+        background-color: var(--platform-color-black);
         transform-origin: left center;
         transform: scaleX(0);
         transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -162,7 +192,7 @@ onUnmounted(() => {
     }
 
     .link {
-      color: #fff;
+      color: var(--platform-color-black);
       transition: color 0.25s ease-in-out;
       cursor: pointer;
       text-transform: uppercase;
@@ -170,9 +200,14 @@ onUnmounted(() => {
       line-height: 100%;
 
       &:hover {
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--platform-color-black-translucent);
       }
     }
+  }
+
+  .navbar__theme {
+    grid-column: span 1;
+    justify-content: flex-end;
   }
 }
 </style>

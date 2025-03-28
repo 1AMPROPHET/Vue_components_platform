@@ -1,5 +1,6 @@
 [data-theme="light"] {
-  --color-black: #000 !important;
-  --color-white: #fff !important;
-  --color-black-translucent: rgba(0, 0, 0, 0.5) !important;
+  --platform-color-theme: #fff;
+  --platform-color-black: #000;
+  --platform-color-white: #fff;
+  --platform-color-black-translucent: rgba(0, 0, 0, 0.5);
 }

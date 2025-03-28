@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import emitter from "@/utils/mitt";
 import { computed, onMounted, ref } from "vue";
 
 const num1 = ref(0);
@@ -80,6 +81,7 @@ const startTimer = () => {
     }
 
     if (num10.value === 9 && num1.value === 9) {
+      emitter.emit("loaderTransform");
       clearInterval(timer);
     }
   }, 10);

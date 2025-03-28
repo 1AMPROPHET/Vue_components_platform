@@ -97,7 +97,7 @@ const handleMouseLeave = () => {
   .view-switch__options {
     position: relative;
     display: flex;
-    border: 1px solid rgba($color: #fff, $alpha: 0.5);
+    border: 1px solid var(--platform-color-black-translucent);
     border-radius: 999px;
 
     .view-switch__option-background {
@@ -108,16 +108,16 @@ const handleMouseLeave = () => {
       align-items: center;
       padding: 5px 14px 6px;
       border-radius: 70px;
-      background-color: #fff;
+      background-color: var(--platform-color-black);
       z-index: -1;
     }
     .view-switch__option--isActive {
-      color: #000000 !important;
+      color: var(--platform-color-white) !important;
     }
 
     .view-switch__option {
       padding: 5px 14px;
-      color: rgba($color: #fff, $alpha: 0.5);
+      color: var(--platform-color-black-translucent);
       font-size: 1rem;
       line-height: 100%;
       letter-spacing: 0.02em;

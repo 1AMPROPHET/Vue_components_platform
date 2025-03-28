@@ -19,9 +19,11 @@ const style = computed(() => {
   return currentTheme.value === "dark"
     ? {
         transform: "translateY(0%)",
+        transition: ".5s ease-in-out",
       }
     : {
         transform: "translateY(-50%)",
+        transition: ".5s ease-in-out",
       };
 });
 
@@ -51,7 +53,7 @@ const switchTheme = () => {
     text-align: center;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: var(--color-black);
+    color: var(--platform-color-black);
     height: 1.34rem;
     overflow: hidden;
   }
@@ -60,7 +62,7 @@ const switchTheme = () => {
     width: 0.8rem;
     height: 0.8rem;
     background: var(--color-theme);
-    border: 1px solid var(--color-black);
+    border: 1px solid var(--platform-color-black);
     border-radius: 100%;
     transition: border, background,
       opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
