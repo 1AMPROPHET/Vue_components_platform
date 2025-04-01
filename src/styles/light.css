@@ -3,4 +3,5 @@
   --platform-color-black: #000;
   --platform-color-white: #fff;
   --platform-color-black-translucent: rgba(0, 0, 0, 0.5);
+  --platform-color-background: #eee;
 }
