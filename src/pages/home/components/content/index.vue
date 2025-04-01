@@ -87,13 +87,13 @@ const headerStyle = ref({
 });
 
 const handler = throttle((e: any) => {
-  // if (!contentRef.value) return;
-  // const scrollTop = contentRef.value.scrollTop;
+  if (!contentRef.value) return;
+  const scrollTop = contentRef.value.scrollTop;
 
-  // if (scrollTop >= 200) {
-  //   emitter.emit("contentScroll");
-  //   contentRef.value.removeEventListener("scroll", handler);
-  // }
+  if (scrollTop >= 200) {
+    emitter.emit("contentScroll");
+    contentRef.value.removeEventListener("scroll", handler);
+  }
   console.log(e);
 });
 
