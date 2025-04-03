@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import emitter from "@/utils/mitt";
+import { throttle } from "@/utils";
 
 const mousePosition = reactive({
   x: 0,
@@ -13,12 +14,12 @@ const mousePosition = reactive({
 
 const cursorScale = ref<number>(1);
 
-const mouseMoveMent = () => {
+const mouseMoveMent = throttle(() => {
   window.addEventListener("mousemove", (e) => {
     mousePosition.x = e.pageX;
     mousePosition.y = e.pageY;
   });
-};
+}, 10);
 
 const cursorStyle = computed(() => {
   return {

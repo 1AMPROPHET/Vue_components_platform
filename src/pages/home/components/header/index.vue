@@ -124,7 +124,7 @@ onUnmounted(() => {
 
       &:hover .logo__bg {
         width: 15rem;
-        transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition: width 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
       }
 
       .logo__bg {
@@ -136,7 +136,7 @@ onUnmounted(() => {
         height: 3rem;
         --aspect-mul: 5.5;
         max-width: calc(3rem * var(--aspect-mul));
-        transition: width 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition: width 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
         border-radius: 5px;
 
         &:hover .logo__text {
