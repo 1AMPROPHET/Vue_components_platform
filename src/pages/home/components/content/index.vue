@@ -3,61 +3,36 @@
     class="app-wrapper"
     style="margin-top: 17.5rem; opacity: 1"
     ref="contentRef"
-    @scroll="handleScroll"
   >
     <div class="page-wrapper">
       <div class="grid-view header" :style="headerStyle">
         <div class="header__title">
           <h1>
-            <div
-              style="
-                padding-bottom: 1.5rem;
-                line-height: 0.7;
-                white-space: pre;
-                position: relative;
-                overflow: visible;
-              "
-            >
-              <div>{{ t("title.fragment1") }}</div>
+            <div :style="titleStyle">
+              <div :style="titleFragmentStyle">{{ t("title.fragment1") }}</div>
             </div>
-            <div
-              style="
-                padding-bottom: 1.5rem;
-                line-height: 0.7;
-                white-space: pre;
-                position: relative;
-                overflow: visible;
-              "
-            >
-              <div>{{ t("title.fragment2") }}</div>
+            <div :style="titleStyle">
+              <div :style="titleFragmentStyle">{{ t("title.fragment2") }}</div>
             </div>
-            <div
-              style="
-                padding-bottom: 1.5rem;
-                line-height: 0.7;
-                white-space: pre;
-                position: relative;
-                overflow: visible;
-              "
-            >
-              <div>{{ t("title.fragment3") }}</div>
+            <div :style="titleStyle">
+              <div :style="titleFragmentStyle">{{ t("title.fragment3") }}</div>
             </div>
           </h1>
         </div>
         <div class="header__description">
           <div>
-            <div layers="3" style="position: relative; overflow: visible">
-              <div style="opacity: 1; transform: none">
+            <div layers="3" style="position: relative; overflow: hidden">
+              <div :style="subtitleFragmentStyle">
                 {{ t("subtitle.fragment1") }}
               </div>
             </div>
-            <div layers="3" style="position: relative; overflow: visible">
-              <div style="opacity: 1; transform: none">
+            <div layers="3" style="position: relative; overflow: hidden">
+              <div :style="subtitleFragmentStyle">
                 {{ t("subtitle.fragment2") }}
               </div>
             </div>
-            <div layers="3" style="position: relative; overflow: visible">
-              <div style="opacity: 1; transform: none">
+            <div layers="3" style="position: relative; overflow: hidden">
+              <div :style="subtitleFragmentStyle">
                 {{ t("subtitle.fragment3") }}
               </div>
             </div>
@@ -86,6 +61,27 @@ const headerStyle = ref({
   transform: "scale(1)",
 });
 
+const titleStyle = ref({
+  paddingBottom: "1.5rem",
+  lineHeight: 0.7,
+  whiteSpace: "pre",
+  overflow: "hidden",
+});
+
+const titleFragmentStyle = ref({
+  opacity: 1,
+  display: "inline-block",
+  transformOrigin: "50% 50% 0.4em",
+  transform: "translateY(150%)",
+  transition: "none",
+});
+
+const subtitleFragmentStyle = ref({
+  opacity: 1,
+  transform: "translateY(150%)",
+  transition: "none",
+});
+
 const handler = throttle((e: any) => {
   if (!contentRef.value) return;
   const scrollTop = contentRef.value.scrollTop;
@@ -97,21 +93,25 @@ const handler = throttle((e: any) => {
   console.log(e);
 });
 
-const handleScroll = (e: any) => {
-  console.log(e);
-};
-
 onMounted(() => {
-  if (contentRef.value) {
-    console.log(contentRef.value);
-    // contentRef.value.addEventListener("scroll", handler);
-  }
+  emitter.on("loaderTransform", () => {
+    titleFragmentStyle.value = {
+      opacity: 1,
+      display: "inline-block",
+      transformOrigin: "50% 50% 0.4em",
+      transform: "none",
+      transition: "transform .5s ease-in-out 1.3s",
+    };
+    subtitleFragmentStyle.value = {
+      opacity: 1,
+      transform: "translateY(0)",
+      transition: "transform .5s ease-in-out 1.3s",
+    };
+  });
 });
 
 onUnmounted(() => {
-  if (contentRef.value) {
-    contentRef.value.removeEventListener("scroll");
-  }
+  emitter.off("loaderTransform");
 });
 </script>
 
@@ -148,7 +148,7 @@ onUnmounted(() => {
       }
 
       .header__description {
-        grid-column: span 4;
+        grid-column: span 6;
         display: flex;
         align-items: flex-end;
         font-size: 1.45rem;
