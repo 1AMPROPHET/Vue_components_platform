@@ -94,7 +94,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .loader {
-  z-index: 99999;
+  z-index: 999999;
   position: fixed;
   top: 0;
   bottom: 0;

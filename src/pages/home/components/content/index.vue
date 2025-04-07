@@ -100,12 +100,12 @@ onMounted(() => {
       display: "inline-block",
       transformOrigin: "50% 50% 0.4em",
       transform: "none",
-      transition: "transform .5s ease-in-out 1.3s",
+      transition: "transform .5s ease-in-out 1.2s",
     };
     subtitleFragmentStyle.value = {
       opacity: 1,
       transform: "translateY(0)",
-      transition: "transform .5s ease-in-out 1.3s",
+      transition: "transform .5s ease-in-out 1.2s",
     };
   });
 });
