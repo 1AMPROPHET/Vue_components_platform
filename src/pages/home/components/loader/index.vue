@@ -25,11 +25,14 @@
 </template>
 
 <script setup lang="ts">
+import { useLoaderStore } from "@/store/loader";
 import emitter from "@/utils/mitt";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 const num1 = ref(0);
 const num10 = ref(0);
+
+const loaderStore = useLoaderStore();
 
 const loaderStyle = computed(() => {
   return num1.value === 9 && num10.value === 9
@@ -67,24 +70,45 @@ const numStyle = computed(() => {
       };
 });
 
+watch(
+  () => num1.value + num10.value,
+  (val) => {
+    if (val === 18) {
+      setTimeout(() => {
+        loaderStore.changeFlag();
+        console.log("00000000000");
+      }, 3000);
+    }
+  },
+  {
+    immediate: true,
+  }
+);
+
 const startTimer = () => {
-  const timer = setInterval(() => {
-    num1.value++;
-    if (num1.value > 9) {
-      num1.value = 0;
-      num10.value++;
+  if (loaderStore.isFirstTime) {
+    const timer = setInterval(() => {
+      num1.value++;
+      if (num1.value > 9) {
+        num1.value = 0;
+        num10.value++;
 
-      if (num10.value > 9) {
-        clearInterval(timer);
-        return;
+        if (num10.value > 9) {
+          clearInterval(timer);
+          return;
+        }
       }
-    }
 
-    if (num10.value === 9 && num1.value === 9) {
-      emitter.emit("loaderTransform");
-      clearInterval(timer);
-    }
-  }, 10);
+      if (num10.value === 9 && num1.value === 9) {
+        emitter.emit("loaderTransform");
+        clearInterval(timer);
+      }
+    }, 10);
+  } else {
+    num1.value = 9;
+    num10.value = 9;
+    emitter.emit("loaderTransform");
+  }
 };
 
 onMounted(() => {
