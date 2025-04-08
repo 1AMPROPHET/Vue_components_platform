@@ -67,20 +67,23 @@ const handleMouseLeave = () => {
 };
 
 onMounted(() => {
-  emitter.on("contentScroll", () => {
-    console.log("contentScroll");
-  });
   emitter.on("loaderTransform", () => {
     style.value = {
       transform: "translateY(0%)",
       transition: ".5s ease-in-out 1s",
     };
   });
+  emitter.on("loaderTransformInvisible", () => {
+    style.value = {
+      transform: "translateY(0%)",
+      transition: ".5s ease-in-out",
+    };
+  });
 });
 
 onUnmounted(() => {
-  emitter.off("contentScroll");
   emitter.off("loaderTransform");
+  emitter.off("loaderTransformInvisible");
 });
 </script>
 

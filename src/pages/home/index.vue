@@ -3,7 +3,7 @@
     <Header />
     <Content />
     <Footer />
-    <loader v-if="loaderStore.isFirstTime" />
+    <loader />
   </a-layout>
 </template>
 
@@ -13,10 +13,7 @@ import Content from "./components/content/index.vue";
 import Footer from "./components/footer/index.vue";
 import Loader from "./components/loader/index.vue";
 import { destroyGeometry, initDustGeometry } from "@/utils/background";
-import { onMounted, onUnmounted, watch } from "vue";
-import { useLoaderStore } from "@/store/loader";
-
-const loaderStore = useLoaderStore();
+import { onMounted, onUnmounted } from "vue";
 
 onMounted(() => {
   console.log("init");
@@ -26,16 +23,6 @@ onMounted(() => {
 onUnmounted(() => {
   destroyGeometry();
 });
-
-watch(
-  () => loaderStore.isFirstTime,
-  (val) => {
-    console.log(val);
-  },
-  {
-    immediate: true,
-  }
-);
 </script>
 
 <style lang="scss" scoped></style>

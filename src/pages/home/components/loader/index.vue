@@ -107,7 +107,9 @@ const startTimer = () => {
   } else {
     num1.value = 9;
     num10.value = 9;
-    emitter.emit("loaderTransform");
+    setTimeout(() => {
+      emitter.emit("loaderTransformInvisible");
+    });
   }
 };
 

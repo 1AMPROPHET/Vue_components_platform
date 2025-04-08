@@ -47,9 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import { throttle } from "@/utils";
 import emitter from "@/utils/mitt";
-import { onMounted, onUnmounted, ref } from "vue";
+import { nextTick, onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -73,24 +72,13 @@ const titleFragmentStyle = ref({
   display: "inline-block",
   transformOrigin: "50% 50% 0.4em",
   transform: "translateY(150%)",
-  transition: "none",
+  transition: "transform .5s ease-in-out 1.2s",
 });
 
 const subtitleFragmentStyle = ref({
   opacity: 1,
   transform: "translateY(150%)",
-  transition: "none",
-});
-
-const handler = throttle((e: any) => {
-  if (!contentRef.value) return;
-  const scrollTop = contentRef.value.scrollTop;
-
-  if (scrollTop >= 200) {
-    emitter.emit("contentScroll");
-    contentRef.value.removeEventListener("scroll", handler);
-  }
-  console.log(e);
+  transition: "transform .5s ease-in-out 1.2s",
 });
 
 onMounted(() => {
@@ -108,10 +96,26 @@ onMounted(() => {
       transition: "transform .5s ease-in-out 1.2s",
     };
   });
+
+  emitter.on("loaderTransformInvisible", () => {
+    titleFragmentStyle.value = {
+      opacity: 1,
+      display: "inline-block",
+      transformOrigin: "50% 50% 0.4em",
+      transform: "none",
+      transition: "transform .5s ease-in-out",
+    };
+    subtitleFragmentStyle.value = {
+      opacity: 1,
+      transform: "translateY(0)",
+      transition: "transform .5s ease-in-out",
+    };
+  });
 });
 
 onUnmounted(() => {
   emitter.off("loaderTransform");
+  emitter.off("loaderTransformInvisible");
 });
 </script>
 
