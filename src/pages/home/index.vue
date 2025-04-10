@@ -1,8 +1,8 @@
 <template>
   <a-layout class="w-full h-full">
-    <Header />
+    <Header @show-footer="handleFooter" />
     <Content />
-    <Footer />
+    <Footer :is-show-footer="flag" @hide-footer="handleFooter" />
     <loader />
   </a-layout>
 </template>
@@ -13,7 +13,13 @@ import Content from "./components/content/index.vue";
 import Footer from "./components/footer/index.vue";
 import Loader from "./components/loader/index.vue";
 import { destroyGeometry, initDustGeometry } from "@/utils/background";
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
+
+const flag = ref(false);
+
+const handleFooter = (val: boolean) => {
+  flag.value = val;
+};
 
 onMounted(() => {
   console.log("init");

@@ -4,6 +4,7 @@ export default {
     menu: "Menu",
     about: "About",
     test: "Test",
+    contact: "contact",
   },
   title: {
     fragment1: "Vue3 + Vite",

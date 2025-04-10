@@ -16,6 +16,14 @@
         @mouseleave="handleMouseLeave"
         >{{ t(item.text) }}</a
       >
+      <a
+        href="#"
+        class="navbar__item link cursor-pointer"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        @click="showFooter"
+        >{{ t("home.contact") }}</a
+      >
     </div>
     <custom-switch v-model="switchValue" on-text="grid" off-text="list" />
     <div class="navbar__wrapper navbar__theme">
@@ -32,6 +40,10 @@ import CustomSwitch from "@/components/switch/index.vue";
 import ThemeSwitch from "@/components/themeSwitch/index.vue";
 import { onMounted, onUnmounted, reactive, ref } from "vue";
 
+const emit = defineEmits<{
+  (e: "showFooter", value: boolean): void;
+}>();
+
 const { t } = useI18n();
 
 const langStore = useLangStore();
@@ -42,10 +54,6 @@ const links = reactive([
   {
     text: "home.homePage",
     link: "/home",
-  },
-  {
-    text: "home.about",
-    link: "/about",
   },
   {
     text: "home.test",
@@ -64,6 +72,10 @@ const handleMouseEnter = () => {
 
 const handleMouseLeave = () => {
   emitter.emit("cursorLeave");
+};
+
+const showFooter = () => {
+  emit("showFooter", true);
 };
 
 onMounted(() => {
